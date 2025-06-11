@@ -29,10 +29,8 @@ Fetching latest HPC Toolset Images..
  - cpn01 Pulled                                                                             5.3s
  - cpn02 Pulled                                                                             5.1s
  - mongodb Pulled                                                                           5.2s
- - xdmod Pulled                                                                             5.1s
  - ldap Pulled                                                                              5.2s
  - mysql Pulled                                                                             5.2s
- - coldfront Pulled                                                                         5.2s
  - frontend Pulled                                                                          5.2s
  - slurmdbd Pulled                                                                          5.1s
  - slurmctld Pulled                                                                         5.2s
@@ -61,23 +59,14 @@ Starting HPC Toolset Cluster..
  - Container cpn02                                   Started                               14.2s
  - Container cpn01                                   Started                               15.2s
  - Container ondemand                                Started                               15.2s
- - Container coldfront                               Started                               15.7s
- - Container xdmod                                   Started                               15.5s
-
- Coldfront URL: https://localhost:2443
-
 
  OnDemand URL: https://localhost:3443
-
-
- XDMoD URL: https://localhost:4443
-
 
  Login to frontend: ssh -p 6222 hpcadmin@localhost
 
 ```
 
-**NOTE:  Despite seeing this output with URLs, the processes on these containers may not be fully running yet.  Depending on the speed of your computer, starting up the processes may take a few minutes (or even up to 10 minutes).  Use the command below to check the docker logs if the websites are not yet displaying.**
+**NOTE:  Despite seeing this output with the URL, the processes on these containers may not be fully running yet.  Depending on the speed of your computer, starting up the processes may take a few minutes (or even up to 10 minutes).  Use the command below to check the docker logs if the websites are not yet displaying.**
 
 
 
@@ -94,13 +83,9 @@ frontend     | ---> Starting sshd on the frontend...
 cpn01        | slurmd: Munge credential signature plugin loaded
 cpn01        | slurmd: CPUs=1 Boards=1 Sockets=1 Cores=1 Threads=1 Memory=15575 TmpDisk=229951 Uptime=43696 CPUSpecList=(null) FeaturesAvail=(null) FeaturesActive=(null)
 cpn02        | slurmd: debug:  AcctGatherEnergy NONE plugin loaded
-coldfront    | -- Waiting for database to become active ...
-coldfront    | -- Initializing coldfront database...
 ondemand     | ---> Starting ondemand httpd24...
 slurmdbd     | slurmdbd: debug2: DBD_NODE_STATE_UP: NODE:cpn01 REASON:(null) TIME:1592625828
 slurmctld    | slurmctld: SchedulerParameters=default_queue_depth=100,max_rpc_cnt=0,max_sched_time=2,partition_job_depth=0,sched_max_job_start=0,sched_min_interval=2
-xdmod        | 2020-06-21 19:23:48 [notice] xdmod-ingestor end (process_end_time: 2020-06-21 19:23:48)
-xdmod        | ---> Starting XDMoD...
 ```
 
 ## Something still not right?
