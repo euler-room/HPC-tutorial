@@ -28,7 +28,6 @@ Fetching latest HPC Toolset Images..
  - ondemand Pulled                                                                          5.3s
  - cpn01 Pulled                                                                             5.3s
  - cpn02 Pulled                                                                             5.1s
- - mongodb Pulled                                                                           5.2s
  - ldap Pulled                                                                              5.2s
  - mysql Pulled                                                                             5.2s
  - frontend Pulled                                                                          5.2s
@@ -49,7 +48,6 @@ Starting HPC Toolset Cluster..
  - Volume "hpc-toolset-tutorial_srv_www"             Created                                0.0s
  - Volume "hpc-toolset-tutorial_cpn01_slurmd_state"  Created                                0.0s
  - Volume "hpc-toolset-tutorial_etc_munge"           Created                                0.0s
- - Container mongodb                                 Started                               12.0s
  - Container mysql                                   Started                               11.9s
  - Container ldap                                    Started                               11.8s
  - Container hpc-toolset-tutorial-base-1             Started                               12.3s
@@ -127,11 +125,11 @@ To completely start over and re-download all images, run the cleanup script and 
 $ ./hpcts cleanup
 $ ./hpcts start
 ```
-NOTE:  The cleanup script removes ALL containers, images and volumes except the mongo and mariadb images.  If you're getting database errors we recommend you remove these manually with these docker commands:  
+NOTE:  The cleanup script removes ALL containers, images and volumes except the mariadb image.  If you're getting database errors we recommend you remove these manually with these docker commands:  
 
 ```
 $ docker image list  
-$ docker image rm [IMAGE IDs for mongo and mariadb images]  
+$ docker image rm [IMAGE IDs for mariadb image]  
 $ ./hpcts start  
 ```
 
