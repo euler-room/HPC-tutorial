@@ -134,6 +134,6 @@ $ ./hpcts start
 ```
 
 ## Tutorial Navigation
-[Next - Accessing the Applications](applications.md)  
+[Next - Accessing the Application](applications.md)  
 [Docker Tips](docker_tips.md)  
 [Back to Start](../README.md)

@@ -30,20 +30,6 @@ URL: https://localhost:3443
 *Portal Logins include:*  
 Once logged in, click on "Clusters" and then "HPC Cluster Shell Access" and you will be logged in to the cluster frontend container.
 
-### Slurm and Compute Nodes
-
-~~There is a slurm controller, slurm database container, and two compute nodes in this cluster.~~
-
-~~Login to the front end first:~~
-~~`ssh -p 6222 hpcadmin@localhost`~~
-
-~~Then login to any of the containers using any of the LDAP accounts listed above.~~
-
-~~SSH container name for Slurm controller: `slurmctld`~~
-~~SSH container name for Slurm database: `slurmdbd`~~
-~~SSH container name for compute node 1: `cpn01`~~
-~~SSH container name for compute node 2: `cpn02`~~
-
 ## Tutorial Navigation 
 [Next - OnDemand](../ondemand/README.md) 
 [Previous Step - Getting Started](getting_started.md)  
