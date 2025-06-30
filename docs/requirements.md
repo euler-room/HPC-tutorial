@@ -8,9 +8,9 @@ For this tutorial you will need to have **20GB of free disk space** and git, doc
 
 The following ports must be open and available:
 
-- 2443
+- ~~2443~~
 - 3443
-- 4443
+- ~~4443~~
 - 5554
 - 6222
 

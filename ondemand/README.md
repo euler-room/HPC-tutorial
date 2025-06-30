@@ -1651,6 +1651,4 @@ Review Job Composer links - access Job Composer
 </details>
 
 ## Tutorial Navigation
-[Next Step - Open XDMoD](../xdmod/README.md)  
-[Previous Step - ColdFront](../coldfront/README.md)  
 [Back to Start](../README.md)  
