@@ -341,7 +341,7 @@ bundle config set force_ruby_platform true
 bin/setup
 ```
 
-Once you run `bin/setup` you should see a bunch of output about getting Rugy gems and building
+Once you run `bin/setup` you should see a bunch of output about getting Ruby gems and building
 Node.js packages.
 
 If you've successfully setup, then so you should be able to
@@ -1494,8 +1494,6 @@ Deploy app
 2. Reload dashboard/app editor and see app appear in dropdown. Launch it.
 3. Initialize app. Notice shell connection lost.
 
-
-
 ### URIs of apps
 
 Go to Sandbox App tab and notice URL: https://localhost:3443/pun/dev/df
@@ -1612,41 +1610,6 @@ Icon can be an image or a font awesome icon:
 Notes
 
 * app is still accessible even if navbar does not display it
-
-</details>
-
-## XDMoD Integration Tutorial
-
-<details>
-  <summary>Click to open or close tutorial details.</summary>
-
-<br>
-
-(Optional) submit a job from job composer to demonstrate XDMoD integration with Job Composer:
-
-1. Jobs => Job Composer
-2. Templates
-3. Create New Job (with python template)
-4. Edit Files
-5. Click `jupyter_notebook_data` in tree.
-6. Select `plot_rbm_logistic_classification.py` and click Copy
-7. Go "back" in browser and click Paste
-8. Select script.sh click edit
-9. change `hello.py` to `plot_rbm_logistic_classification.py` and save
-10. Back to Job Composer and submit job
-
-### Enable the integration
-
-Review integration steps (see dashboard MOTD)
-
-1. run command to update config
-2. run command to ingest
-
-Review dashboard widgets - restart Web Server to see
-
-* job efficiency report is based on both core and memory usage but these containers don't gather all the necessary information, which is why they display 100%
-
-Review Job Composer links - access Job Composer
 
 </details>
 
