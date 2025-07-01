@@ -8,7 +8,7 @@ log_info() {
 }
 
 
-PASS_VERSION='6.0.14'
+PASS_VERSION='6.0.27'
 NGINX_VERSION='1.18.0'
 BUILD_DIR=$(mktemp -d -p /build)
 

@@ -12,7 +12,10 @@ cd $BUILD_DIR
 
 git clone https://github.com/cisco/cjose
 cd cjose
-git checkout 0.6.1
+# Run autoreconf to generate configure script
+autoreconf -fiv
+# Configure with specific CFLAGS to handle OpenSSL 3.0 deprecation warnings
+export CFLAGS="-Wno-deprecated-declarations -Wno-error=deprecated-declarations"
 ./configure
 make && make install
 
@@ -28,7 +31,7 @@ sh autogen.sh
 make && make install
 
 cd $BUILD_DIR
-OOD_VERSION='3.0.0'
+OOD_VERSION='4.0.5'
 wget "https://github.com/OSC/ondemand/archive/refs/tags/v$OOD_VERSION.tar.gz"
 tar -xf "v$OOD_VERSION.tar.gz"
 cd ondemand-$OOD_VERSION
