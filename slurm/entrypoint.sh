@@ -9,6 +9,15 @@ then
     /sbin/sssd --logger=stderr -d 2 -i 2>&1 &
 
     echo "---> Starting the MUNGE Authentication service (munged) ..."
+    # Initialize MUNGE key in shared volume if it doesn't exist
+    if [ ! -f /etc/munge/munge.key ]; then
+        echo "Creating MUNGE key in shared volume..."
+        /sbin/create-munge-key -f
+    fi
+    # Fix MUNGE directory and key permissions
+    chown -R munge:munge /etc/munge
+    chmod 700 /etc/munge
+    chmod 400 /etc/munge/munge.key
     gosu munge /usr/sbin/munged
 
     echo "---> Starting sshd on the slurmdbd..."
@@ -37,6 +46,15 @@ then
     /sbin/sssd --logger=stderr -d 2 -i 2>&1 &
 
     echo "---> Starting the MUNGE Authentication service (munged) ..."
+    # Initialize MUNGE key in shared volume if it doesn't exist
+    if [ ! -f /etc/munge/munge.key ]; then
+        echo "Creating MUNGE key in shared volume..."
+        /sbin/create-munge-key -f
+    fi
+    # Fix MUNGE directory and key permissions
+    chown -R munge:munge /etc/munge
+    chmod 700 /etc/munge
+    chmod 400 /etc/munge/munge.key
     gosu munge /usr/sbin/munged
 
     echo "---> Starting sshd on the slurmctld..."
@@ -63,6 +81,15 @@ then
     /sbin/sssd --logger=stderr -d 2 -i 2>&1 &
 
     echo "---> Starting the MUNGE Authentication service (munged) ..."
+    # Initialize MUNGE key in shared volume if it doesn't exist
+    if [ ! -f /etc/munge/munge.key ]; then
+        echo "Creating MUNGE key in shared volume..."
+        /sbin/create-munge-key -f
+    fi
+    # Fix MUNGE directory and key permissions
+    chown -R munge:munge /etc/munge
+    chmod 700 /etc/munge
+    chmod 400 /etc/munge/munge.key
     gosu munge /usr/sbin/munged
 
     echo "---> Starting sshd on the slurmd..."
@@ -78,10 +105,18 @@ then
     echo "-- slurmctld is now active ..."
 
     echo "---> Starting pmcd on the slurmd..."
-    /usr/libexec/pcp/lib/pmcd start-systemd
+    /usr/libexec/pcp/lib/pmcd start-systemd || echo "pmcd failed to start, continuing..."
 
     echo "---> Starting pmlogger on the slurmd.."
-    /usr/libexec/pcp/lib/pmlogger start-systemd
+    /usr/libexec/pcp/lib/pmlogger start-systemd || echo "pmlogger failed to start, continuing..."
+
+    echo "---> Waiting for MUNGE socket to be available..."
+    until [ -S /var/run/munge/munge.socket.2 ]
+    do
+        echo "-- MUNGE socket not available. Sleeping ..."
+        sleep 1
+    done
+    echo "-- MUNGE socket is now available ..."
 
     echo "---> Starting the Slurm Node Daemon (slurmd) ..."
     exec /usr/sbin/slurmd -Dv
@@ -95,6 +130,15 @@ then
     /sbin/sssd --logger=stderr -d 2 -i 2>&1 &
 
     echo "---> Starting the MUNGE Authentication service (munged) ..."
+    # Initialize MUNGE key in shared volume if it doesn't exist
+    if [ ! -f /etc/munge/munge.key ]; then
+        echo "Creating MUNGE key in shared volume..."
+        /sbin/create-munge-key -f
+    fi
+    # Fix MUNGE directory and key permissions
+    chown -R munge:munge /etc/munge
+    chmod 700 /etc/munge
+    chmod 400 /etc/munge/munge.key
     gosu munge /usr/sbin/munged
 
     until scontrol ping | grep UP 2>&1 > /dev/null
