@@ -1,8 +1,9 @@
 ARG HPCTS_VERSION=latest
+ARG DOCKER_USER=gbuchanan/hpc-demo
 
-FROM --platform=linux/amd64 ubccr/hpcts:base-${HPCTS_VERSION} as stage-amd64
+FROM --platform=linux/amd64 ${DOCKER_USER}:base-${HPCTS_VERSION} as stage-amd64
 
-FROM --platform=linux/arm64 ubccr/hpcts:base-${HPCTS_VERSION} as stage-arm64
+FROM --platform=linux/arm64 ${DOCKER_USER}:base-${HPCTS_VERSION} as stage-arm64
 
 ARG TARGETARCH
 

@@ -1,15 +1,16 @@
 ARG HPCTS_VERSION=latest
+ARG DOCKER_USER=gbuchanan/hpc-demo
 
-FROM --platform=linux/amd64 ubccr/hpcts:slurm-${HPCTS_VERSION} as stage-amd64
-RUN dnf install -y https://yum.osc.edu/ondemand/3.0/ondemand-release-web-3.0-1.noarch.rpm
+FROM --platform=linux/amd64 ${DOCKER_USER}:slurm-${HPCTS_VERSION} as stage-amd64
+RUN dnf install -y https://yum.osc.edu/ondemand/4.0/ondemand-release-web-4.0-1.noarch.rpm
 RUN dnf install -y netcat ondemand ondemand-dex libyaml-devel
 RUN gem install rdoc -v 6.3.3
 
-FROM --platform=linux/arm64 ubccr/hpcts:slurm-${HPCTS_VERSION} as stage-arm64
+FROM --platform=linux/arm64 ${DOCKER_USER}:slurm-${HPCTS_VERSION} as stage-arm64
 RUN dnf install -y file lsof sudo gcc gcc-c++ git \
-        patch lua-posix rsync ruby ruby-devel python2 python3 \
+        patch lua-posix rsync ruby ruby-devel python3 \
         nodejs sqlite sqlite-devel nmap-ncat httpd httpd-devel mod_ssl \
-        libcurl-devel autoconf openssl-devel jansson-devel libxml2-devel \
+        libcurl-devel autoconf automake libtool openssl-devel jansson-devel libxml2-devel \
         libxslt-devel gd-devel libaio-devel libyaml-devel
 RUN gem install rake dotenv bcrypt && gem install rdoc -v 6.3.3
 COPY . /build
