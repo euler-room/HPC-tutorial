@@ -7,20 +7,22 @@ log_info() {
   printf "\n\e[0;35m $1\e[0m\n\n"
 }
 
-SLURM_VERSION=${SLURM_VERSION:-24.05.5}
-WEBSOCKIFY_VERSION=${WEBSOCKIFY_VERSION:-0.12.0}
+SLURM_VERSION=${SLURM_VERSION:-24.05.7}
+# Remove packaging suffix (e.g., -1) from version for download URL
+SLURM_DOWNLOAD_VERSION=${SLURM_VERSION%-*}
+WEBSOCKIFY_VERSION=${WEBSOCKIFY_VERSION:-0.13.0}
 ARCHTYPE=$(uname -m)
 
 log_info "Installing required packages for building slurm.."
 curl -o /etc/yum.repos.d/turbovnc.repo https://raw.githubusercontent.com/TurboVNC/repo/main/TurboVNC.repo
 dnf -y install dnf-plugins-core
-dnf -y config-manager --set-enabled powertools
-dnf -y module enable ruby:3.0 nodejs:14
-dnf install -y \
+dnf -y config-manager --set-enabled crb
+# Remove curl-minimal to avoid conflicts with curl package
+dnf -y remove curl-minimal || true
+dnf install -y --allowerasing --skip-broken \
     @Development \
     munge \
     munge-devel \
-    libcgroup \
     curl \
     bzip2 \
     readline-devel \
@@ -33,15 +35,13 @@ dnf install -y \
     mariadb \
     turbovnc \
     mariadb-devel \
-    python39 \
-    python39-devel \
+    python3 \
+    python3-devel \
     python3-numpy \
     kitty-terminfo \
     stress
 
 log_info "Installing compute packages .."
-
-alternatives --set python3 /usr/bin/python3.9
 
 dnf groupinstall -y "Xfce"
 
@@ -55,10 +55,10 @@ popd
 rm -rf /tmp/websockify*
 
 log_info "Compiling slurm version ${SLURM_VERSION}.."
-curl -o /tmp/slurm-${SLURM_VERSION}.tar.bz2 https://download.schedmd.com/slurm/slurm-${SLURM_VERSION}.tar.bz2
+curl -o /tmp/slurm-${SLURM_DOWNLOAD_VERSION}.tar.bz2 https://download.schedmd.com/slurm/slurm-${SLURM_DOWNLOAD_VERSION}.tar.bz2
 pushd /tmp
-tar xf slurm-${SLURM_VERSION}.tar.bz2
-pushd slurm-${SLURM_VERSION}
+tar xf slurm-${SLURM_DOWNLOAD_VERSION}.tar.bz2
+pushd slurm-${SLURM_DOWNLOAD_VERSION}
 ./configure --prefix=/usr --sysconfdir=/etc/slurm
 make -j4
 make install
@@ -96,6 +96,8 @@ chown -R slurm:slurm /var/*/slurm*
 
 log_info "Creating munge key.."
 /sbin/create-munge-key
+chown munge:munge /etc/munge/munge.key
+chmod 400 /etc/munge/munge.key
 
 log_info "Installing performance data collection software.."
 dnf install -y pcp
