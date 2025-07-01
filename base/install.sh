@@ -39,7 +39,14 @@ dnf install -y \
     sssd-tools \
     authselect \
     openssl \
-    bash-completion
+    bash-completion \
+    curl \
+    tar \
+    gzip \
+    make \
+    gcc \
+    gcc-c++ \
+    git
 
 #------------------------
 # Generate ssh host keys
